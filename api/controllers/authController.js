@@ -2,27 +2,27 @@ const { helper, xss, jwt, bcrypt } = require("../config/autoload");
 const { userModel } = require("../models/autoload");
 class authController {
   async login(req, res, next) {
-    const username = xss(req.body.username.toString());
-    const password = xss(req.body.password.toString());
+    const username = xss(req.body.username);
+    const password = xss(req.body.password);
     if (!username || !password)
       return res.status(401).json({
-        error: true,
+        status: false,
         message: "Thiếu dữ liệu đầu vào ",
       });
     if (username.length < 6 || username.length > 32)
       return res.status(403).json({
-        error: true,
+        status: false,
         message: "Tài khoản từ 6 -> 32 kí tự",
       });
     if (password.length < 6)
       return res.status(403).json({
-        error: true,
+        status: false,
         message: "Mật khẩu có ít nhất 6 kí tự",
       });
     let User = await userModel.findOne({ username });
     if (!User)
       return res.status(403).json({
-        error: true,
+        status: false,
         message: "Tài khoản không tồn tại",
       });
     await bcrypt.compare(password, User.password, (err, veri) => {
@@ -37,7 +37,7 @@ class authController {
         );
         delete User.password;
         return res.status(200).json({
-          success: true,
+          status: true,
           message: "Đăng nhập thành công",
           token,
           data: {
@@ -51,7 +51,7 @@ class authController {
         });
       }
       res.status(403).json({
-        error: true,
+        status: false,
         message: "Sai mật khẩu, hãy thử lại",
       });
     });
@@ -63,23 +63,23 @@ class authController {
     const password = xss(req.body.password);
     if (!helper.validateEmail(email) || !username || !password)
       return res.status(403).json({
-        error: true,
+        status: false,
         message: "Thiếu dữ liệu đầu vào hoặc không hợp lệ",
       });
     if (username.length < 6 || username.length > 32)
       return res.status(403).json({
-        error: true,
+        status: false,
         message: "Tài khoản từ 6 -> 32 kí tự",
       });
     if (password.length < 6)
       return res.status(403).json({
-        error: true,
+        status: false,
         message: "Mật khẩu có ít nhất 6 kí tự",
       });
     let User = await userModel.findOne({ $or: [{ username }, { email }] });
     if (User)
       return res.status(403).json({
-        error: true,
+        status: false,
         message: "Email hoặc tài khoản đã tồn tại",
       });
     let passwordEn = bcrypt.hashSync(password, 10);
@@ -92,7 +92,7 @@ class authController {
       security
     });
     res.status(200).json({
-      success: true,
+      status: true,
       message: "Đăng kí thành công!",
     });
   }
