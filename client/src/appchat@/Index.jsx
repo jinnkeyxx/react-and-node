@@ -1,11 +1,64 @@
-import React , {Suspense , lazy} from 'react'
+import React ,{ lazy , Suspense } from 'react'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import * as api from './Service/apiHelper'
 import Loading from './Components/Loading'
-const Index = lazy(() => import('./Pages/Index'))
-const AppChat = () => {
-    return(
-        <Suspense fallback={<Loading/>}>
-            <Index/>
-        </Suspense>
+const Auth = lazy(() => import('./Pages/Auth'))
+const isAuthencated = api.isLogin()
+const UserLogin = ({ children, ...rest }) => {
+    return (
+        <Route
+        {...rest}
+        render={({ location }) =>
+        !isAuthencated ? ( children ) : (
+            <Redirect to={{
+                pathname: "/main",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
     )
 }
-export default AppChat
+const PrivateRoute = ({ children, ...rest }) => {
+    return (
+        <Route
+        {...rest}
+        render={({ location }) =>
+        isAuthencated ? ( children ) : (
+            <Redirect to={{
+                pathname: "/Auth",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
+    )
+}
+const Appchat = () => {
+    return(
+        <Router>
+            <Suspense fallback={<Loading/>}>
+                <Switch>
+                    <PrivateRoute path="/main">
+                        <h1>main</h1>
+                    </PrivateRoute>
+                    
+                    <UserLogin path="/Auth">
+                        <Auth/>
+                    </UserLogin>
+                    
+                </Switch>
+            </Suspense>
+        </Router>
+
+    )
+}
+export default React.memo(Appchat)

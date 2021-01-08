@@ -3,17 +3,21 @@ import { url } from './Url'
 import jwt from 'jsonwebtoken'
 const KEY_JWT = "appchat@"
 export const sendPostData = async (path , data) => {
-
+    let result
     const response = await axios({
         url : `${url}/${path}`,
         method : 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded",
+        headers : {
+            'Content-Type': 'application/json',
+            'Authorization': 'JWT fefege'
         },
         data : data
+    }).then((e) => {
+        result = e
+    }).catch((e) => {
+        result = e
     })
-    const result = await response.status === 200 ? await response.data  : {}
-    return result
+    return result.data
 }
 
 export const saveToken = (token) => {
