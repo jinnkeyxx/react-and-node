@@ -1,9 +1,11 @@
-import React , {useState} from 'react'
+import React , {useState , useEffect} from 'react'
 import {Container , Row , Col , Card} from 'react-bootstrap'
-import Alert from '../Components/Alert'
+import Alert from './Alert'
 import * as api from '../Service/apiHelper'
 import * as helper from '../Helper/Common'
-import Loading from '../Components/Loading'
+import Loading from './Loading'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 const Form = (props) => {
     const [showAlert , setShowAlert] = useState(false)
     const [isLoading , setLoading] = useState(false)
@@ -52,6 +54,10 @@ const Form = (props) => {
             await setErrorForm(data.message)
         }
     }
+ 
+    useEffect(() => {
+        AOS.init({duration : 2000});
+    }, [])
     return(
     <Container className="container pt-5">
         

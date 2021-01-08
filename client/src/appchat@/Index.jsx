@@ -7,8 +7,9 @@ import {
   Redirect
 } from "react-router-dom";
 import * as api from './Service/apiHelper'
-import Loading from './Components/Loading'
+import Loading from './SubComponents/Loading'
 const Auth = lazy(() => import('./Pages/Auth'))
+const Home = lazy(() => import('./Pages/Home'))
 const isAuthencated = api.isLogin()
 const UserLogin = ({ children, ...rest }) => {
     return (
@@ -48,7 +49,7 @@ const Appchat = () => {
             <Suspense fallback={<Loading/>}>
                 <Switch>
                     <PrivateRoute path="/main">
-                        <h1>main</h1>
+                    <Home/>
                     </PrivateRoute>
                     
                     <UserLogin path="/Auth">
