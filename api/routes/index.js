@@ -10,9 +10,9 @@ const JwtMdw = require('../middlewares/jwt');
 // module.exports = router;
 module.exports = (app) => {
   
-  app.use('/friend/', require('./friend'));
+  app.use('/friend/', JwtMdw, require('./friend'));
 
-  app.use('/profile/', require('./profile'));
+  app.use('/profile/', JwtMdw, require('./profile'));
 
   app.use('/auth', require('./auth'));
 
