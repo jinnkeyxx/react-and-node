@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+  }
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+.app {
+    background-color: #f1f2f5;
+    /* height: 100vh; */
+}
+.appBody {
+    display: flex;
+}
+
+img.logoMini {
+  margin: auto;
+}
+
+/* html, body, #root{
+    background-color: rgb(231, 231, 231);
+}
+.card{
+    margin-block-end: 10px;
+}
+.newPost{
+    width: 100%;
+    position: relative;
+}
+.formNewPost{
+    padding-top: 12px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    display: flex;
+    padding-right: 16px;
+    padding-left: 16px;
+    align-items: center;
+}
+input.inputNewPost.form-control {
+    border-radius: 6px;
+    font-size: 17px;
+    padding: 14px 16px;
+    height: 50px;
+    border-radius: 40px;
+    background-color: #e9ecef;
+    opacity: 1;
+  }
+  img.rounded-circle.miniAvt {
+    height: 50px;
+    width: 50px;
+}
+button.submitNewPost.btn.btn-primary.btn-block.btn-lg{
+    border-radius: 40px;
+} */
